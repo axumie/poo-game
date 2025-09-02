@@ -28447,5 +28447,7 @@ void Game::ComposeFrame()
 			DrawGameOver( 358,268 );
 		}
 		meter.Draw( gfx );
+		gfx.DrawCircle(200, 200, 50, Colors::Magenta);
 	}
+	
 }
