@@ -50,6 +50,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+
 	goal.UpdateColor();
 	if( isStarted && !isGameOver )
 	{
@@ -28447,7 +28449,7 @@ void Game::ComposeFrame()
 			DrawGameOver( 358,268 );
 		}
 		meter.Draw( gfx );
-		gfx.DrawCircle(200, 200, 50, Colors::Magenta);
+		//gfx.DrawCircle(200, 200, 50, Colors::Magenta);
 	}
 	
 }
