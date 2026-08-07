@@ -368,22 +368,24 @@ void Dude::Update(const Keyboard& kbd, MainWindow& wnd, float dt)
 		pos += dir * speed * dt;
 	}
 	{
+		Vec2 delta(0.0f, 0.0f);
 		if (kbd.KeyIsPressed(VK_RIGHT))
 		{
-			pos.x += speed * dt;
+			delta.x += 1.0f;
 		}
 		if (kbd.KeyIsPressed(VK_LEFT))
 		{
-			pos.x -= speed * dt;
+			delta.x -= 1.0f;
 		}
 		if (kbd.KeyIsPressed(VK_DOWN))
 		{
-			pos.y += speed * dt;
+		    delta.y += 1.0f;
 		}
 		if (kbd.KeyIsPressed(VK_UP))
 		{
-			pos.y -= speed * dt;
+			delta.y -= 1.0f;
 		}
+		pos += delta.GetNormalized() * speed * dt;
 	}
 }
 
