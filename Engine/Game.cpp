@@ -56,7 +56,7 @@ void Game::UpdateModel()
 	goal.UpdateColor();
 	if( isStarted && !isGameOver )
 	{
-		dude.Update( wnd.kbd, dt);
+		dude.Update(wnd.kbd, wnd, dt);
 		dude.ClampToScreen();
 
 		for( int i = 0; i < nPoo; ++i )
@@ -28450,7 +28450,6 @@ void Game::ComposeFrame()
 			DrawGameOver( 358,268 );
 		}
 		meter.Draw( gfx );
-		//gfx.DrawCircle(200, 200, 50, Colors::Magenta);
 	}
 	
 }

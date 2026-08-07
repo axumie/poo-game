@@ -1,5 +1,7 @@
 #include "Dude.h"
 #include "Graphics.h"
+#include "MainWindow.h"
+#include "Mouse.h"
 
 void Dude::ClampToScreen()
 {
@@ -347,23 +349,41 @@ void Dude::Draw( Graphics& gfx ) const
 	gfx.PutPixel( 12 + x_int,19 + y_int,0,0,0 );
 }
 
-void Dude::Update( const Keyboard & kbd, float dt )
+void Dude::Update(const Keyboard& kbd, MainWindow& wnd, float dt)
 {
-	if( kbd.KeyIsPressed( VK_RIGHT ) )
+	while (!wnd.mouse.IsEmpty())
 	{
-		pos.x += speed * dt;
+		const Mouse::Event e = wnd.mouse.Read();
+	
+		if (e.GetType() == Mouse::Event::Type::RPress)
+		{
+			moveToCursor = !moveToCursor;
+		}
 	}
-	if( kbd.KeyIsPressed( VK_LEFT ) )
+	if (moveToCursor)
 	{
-		pos.x -= speed * dt;
+		Vec2 mousepos = Vec2(float(wnd.mouse.GetPosX()), float(wnd.mouse.GetPosY()));
+		Vec2 dir = mousepos - pos;
+		dir = dir.GetNormalized();
+		pos += dir * speed * dt;
 	}
-	if( kbd.KeyIsPressed( VK_DOWN ) )
 	{
-		pos.y += speed * dt;
-	}
-	if( kbd.KeyIsPressed( VK_UP ) )
-	{
-		pos.y -= speed * dt;
+		if (kbd.KeyIsPressed(VK_RIGHT))
+		{
+			pos.x += speed * dt;
+		}
+		if (kbd.KeyIsPressed(VK_LEFT))
+		{
+			pos.x -= speed * dt;
+		}
+		if (kbd.KeyIsPressed(VK_DOWN))
+		{
+			pos.y += speed * dt;
+		}
+		if (kbd.KeyIsPressed(VK_UP))
+		{
+			pos.y -= speed * dt;
+		}
 	}
 }
 
